@@ -1,1 +1,1 @@
-# FlickPic
+# QuickFlix
