@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<h1>Movie Detail</h1>
+<p>Title: {{movie.name}}</p>
+<p>Genre: {{movie.get_genre_display}}</p>
+<p>Description: {{movie.description}}</p>
 
 <h1>Add Review</h1>
 
