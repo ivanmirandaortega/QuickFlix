@@ -40,7 +40,8 @@ def about(request):
   return render(request, 'about.html')
 
 def movies_index(request):
-  return render(request, 'movies/index.html')
+  movies = Movie.objects.all()
+  return render(request, 'movies/index.html', {'movies': movies})
 
 class MovieCreate(LoginRequiredMixin,CreateView):
   model = Movie
