@@ -3,6 +3,9 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
+from main_app.models import Movie
+from .forms import ReviewForm
 
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
 BUCKET = 'myimagebucket28'
@@ -39,3 +42,43 @@ def about(request):
 def movies_index(request):
   return render(request, 'movies/index.html')
 
+class MovieCreate(LoginRequiredMixin,CreateView):
+  model = Movie
+  fields = ['name', 'description', 'genre']
+  
+  # This inherited method is called when a
+  # valid cat form is being submitted
+  def form_valid(self, form):
+    # Assign the logged in user (self.request.user)
+    form.instance.user = self.request.user  # form.instance is the cat
+    # Let the CreateView do its job as usual
+    return super().form_valid(form)
+
+def add_review(request, movie_id):
+
+	# create a ModelForm Instance using the data in the request
+	form = ReviewForm(request.POST)
+	# validate
+	if form.is_valid():
+		# do somestuff
+		# creates an instance of out feeding to be put in the database
+		# lets not save it yet, commit=False because we didnt add the foreign key
+		new_review = form.save(commit=False)
+		#look at the note for cat field in the Feeding Model
+		new_review.movie_id = movie_id
+		new_review.save() # adds the feeding to the database, and the feeding be associated with the cat
+		# with same id as the argument to the function cat_id
+
+
+	return redirect('detail', movie_id=movie_id)
+
+
+
+def movies_detail(request, movie_id):
+    movie = Movie.objects.get(id=movie_id)
+    # create an instance of FeedingForm
+    review_form = ReviewForm()
+
+    return render(request, 'movies/detail.html', {'movie': movie, 'review_form': review_form,
+    
+    })
