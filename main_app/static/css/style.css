@@ -13,3 +13,28 @@ body {
 	text-align: right;
   }
   
+.container {
+	width: 85%;
+}
+
+.col {
+	display: flex;
+}
+
+img {
+	width: 400px;
+	height: 400px;
+}
+
+.logos {
+	display: flex;
+	margin-left: 20px;
+	align-items: flex-end;
+}
+
+.img-logo {
+	height: 100px;
+	width: 100px;
+	border-radius: 35px;
+	margin: 10px;
+}
