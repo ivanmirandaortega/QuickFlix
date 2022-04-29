@@ -6,7 +6,11 @@
     <div class="about">
         <h2>A quicker way to pick your flick</h2>
         <p>QuickFlix is an app that brings the best movies of Netflix, Hulu, and Amazon Prime to one place. The user can search through all three libraries simultaneously, cutting their search time in half.</p>
-        <div><a class="waves-effect waves-light btn-large" href="{% url 'signup' %}">Sign Up</a></div>
+        {% if user.is_authenticated %}
+        <div><a class="waves-effect waves-light btn-large" href="{% url 'logout' %}">Log Out</a></div>
+        {% else %}
+       <div><a class="waves-effect waves-light btn-large" href="{% url 'signup' %}">Sign Up</a></div>
+       {% endif %}
     </div>
     <img src="https://www.kindpng.com/picc/m/59-592326_cinema-popcorn-png-movie-popcorn-transparent-background-png.png">
 </div>
