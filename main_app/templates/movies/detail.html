@@ -31,11 +31,12 @@
     {% for review in movie.review_set.all %}
     <tr>
       <td>{{review.comment}}</td>
+      <td>{{review.recommend}}</td>
+
     </tr>
     {% endfor %}
   </tbody>
 </table>
 </div>
 </div>
-
 {% endblock %}
