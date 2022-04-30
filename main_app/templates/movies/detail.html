@@ -19,5 +19,23 @@
 </div>
 
 <!-- below all HTML -->
+</script>
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Reviews</th>
+      <th>Recommendations</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for review in movie.review_set.all %}
+    <tr>
+      <td>{{review.comment}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
 
 {% endblock %}
