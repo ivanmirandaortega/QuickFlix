@@ -9,12 +9,15 @@
 <h1>Add Review</h1>
 
 <!-- Leaving the action empty makes the form post to the same url used to display it -->
+<div class="col s6">
+  <!-- new code below -->
+  <form method="post" action="{% url 'add_review' movie.id %}">
+    {% csrf_token %}
+    {{ review_form.as_p }}
+    <input type="submit" class="btn" value="Add Review">
+  </form>
+</div>
 
-<form action="" method="post">
-  {% csrf_token %}
-  <label for="your_name">Review: </label>
-  <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
-  <input type="submit" value="OK">
-</form>
+<!-- below all HTML -->
 
 {% endblock %}
