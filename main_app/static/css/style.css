@@ -2,17 +2,17 @@ body {
 	display: flex;
 	min-height: 100vh;
 	flex-direction: column;
-  }
-  
-  main {
+}
+
+main {
 	flex: 1 0 auto;
-  }
-  
-  footer.page-footer {
+}
+
+footer.page-footer {
 	padding-top: 0;
 	text-align: right;
-  }
-  
+}
+
 .container {
 	width: 85%;
 }
@@ -37,4 +37,12 @@ img {
 	width: 100px;
 	border-radius: 35px;
 	margin: 10px;
+}
+
+nav.nav {
+	background-color: rgb(23, 62, 160) !important;
+}
+
+footer.page-footer {
+	background-color: rgb(23, 62, 160) !important;
 }
