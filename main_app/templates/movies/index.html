@@ -3,15 +3,15 @@
 
 <h1>Movie List</h1>
 
-{% for movie in movies %}
 <div class="row">
-    <a href="{% url 'detail' movie.id%}">
-        <div class="col s3 m3 13">
+{% for movie in movies %}
+    <div class="col s3 m3 13">
+        <a href="{% url 'detail' movie.id%}">
             <img src="{{ movie.image }}" alt="" class="responsive.img">
-        </div>
-    </a>
+        </a>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
     
 <div class="row">
     <div class="col s3 m3 13"><img src="/static/css/images/black-panther-web.jpeg" alt="" class="responsive-img"></div>
