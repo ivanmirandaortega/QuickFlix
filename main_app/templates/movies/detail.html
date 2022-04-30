@@ -31,8 +31,7 @@
     {% for review in movie.review_set.all %}
     <tr>
       <td>{{review.comment}}</td>
-      <td>{{review.recommend}}</td>
-
+      <td>{{review.recommend|yesno:"Would Recommend,Would not Recommend" }}</td>
     </tr>
     {% endfor %}
   </tbody>
