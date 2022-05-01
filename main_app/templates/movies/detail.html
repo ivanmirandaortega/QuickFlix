@@ -3,20 +3,23 @@
 {% block content %}
 <h1>Movie Detail</h1>
 
-<div class="col">
-  
-  {% for movie in movies %}
-  <div>
-    <img src="{{ movie.image }}" alt="" class="responsive-img">
+<div class="row">
+  <div class="col s6"> 
+      <div>
+        <img src="{{movie.image}}" alt="" class="responsive-img">
+      </div>
   </div>
-  {% endfor %}
-    
+  
+  <div class="col s6">
+    <div class="block">
+      <p>Title: {{movie.name}}</p>
+      <p>Genre: {{movie.get_genre_display}}</p>
+      <p>Description: {{movie.description}}</p>
+      <div><a class="waves-effect waves-light btn-large" href="{{movie.movielink}}">Watch Now!</a></div>
+    </div>
+  </div>
 </div>
 
-<p>Title: {{movie.name}}</p>
-<p>Genre: {{movie.get_genre_display}}</p>
-<p>Description: {{movie.description}}</p>
-<div><a class="waves-effect waves-light btn-large" href="{{movie.movielink}}">Watch Now!</a></div>
 <h2>Add Review</h2>
 
 <!-- Leaving the action empty makes the form post to the same url used to display it -->

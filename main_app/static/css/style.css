@@ -95,3 +95,15 @@ footer.page-footer {
 th {
 	color: #fff;
 }
+
+.block {
+	display: inline;
+}
+
+
+
+@media screen and (min-width: 1440px) and (max-width: 900px) {
+	.about {
+		width: 960px;
+	}
+}
