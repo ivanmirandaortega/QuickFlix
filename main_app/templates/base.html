@@ -7,34 +7,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>QuickFlix</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header class="navbar-fixed">
         <nav class="nav">
-            <div class="nav-wrapper">
-                <ul>
-                    <li><a href="/" class="left brand-logo">&nbsp;&nbsp;QuickFlix</a></li>
-                </ul>
-                <ul class="right">
-                    <li><a href="{% url 'about' %}">About</a></li>
-                    {% if user.is_authenticated %}
-                    <li><a href="{% url 'index' %}">All Movies</a></li>
-                    <li><form method="post" action="{% url 'search-movies' %}">
-                        {% csrf_token %}
-                        <input type="search" placeholder="Search Movies" aria-label="Search" name="searched">
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
-                    </form></li>
- 
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
-                    {% else %}
-                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    <li><a href="{% url 'login' %}">Log In</a></li>
-                    {% endif %}
-                </ul>
-                </ul>
-            </div>
+                <div class="nav-wrapper">
+                    <ul>
+                        <li><a href="/" class="left"><img src="https://quickflix.s3.us-west-1.amazonaws.com/logos/QUICKFLIX.svg" alt=""></a></li>
+                    </ul>
+                    <ul class="right">
+                        <li><a href="{% url 'index' %}">All Movies</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><form method="post" action="{% url 'search-movies' %}">
+                            {% csrf_token %}
+                            <input type="search" placeholder="Search Movies" aria-label="Search" name="searched">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </form></li>
+     
+                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        {% else %}
+                        <li><a href="{% url 'signup' %}" class="btn-small">Sign Up</a></li>
+                        <li><a href="{% url 'login' %}">Log In</a></li>
+                        {% endif %}
+                    </ul>
+                    </ul>
+                </div>
         </nav>
     </header>
     <main class="container">
@@ -42,7 +45,7 @@
         {% endblock %}
     </main>
     <footer class="page-footer">
-        <div class="right">All Rights Reserved, &copy; 2022 QuickFlix &nbsp;</div>
+        <div class="center">All Rights Reserved, &copy; 2022 QuickFlix &nbsp;</div>
     </footer>
 </body>
 </html>
