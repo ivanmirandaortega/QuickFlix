@@ -21,6 +21,12 @@
                     <li><a href="{% url 'about' %}">About</a></li>
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'index' %}">All Movies</a></li>
+                    <li><form method="post" action="{% url 'search-movies' %}">
+                        {% csrf_token %}
+                        <input type="search" placeholder="Search Movies" aria-label="Search" name="searched">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </form></li>
+ 
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}
                     <li><a href="{% url 'signup' %}">Sign Up</a></li>

@@ -1,14 +1,30 @@
+from operator import contains
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
-from main_app.models import Movie
+from main_app.models import GENRES, Movie
 from .forms import ReviewForm
 
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
 BUCKET = 'myimagebucket28'
+
+def search_movies(request):
+  if request.method == "POST":
+    searched = request.POST['searched']
+    movies = Movie.objects.filter(name__contains=searched)
+    return render(request,
+    'movies/search_movies.html',
+    {'searched': searched,
+    'movies': movies})
+  
+  else:
+    return render(request,
+    'movies/search_movies.html',
+    {})
+
 
 def signup(request):
   error_message = ''

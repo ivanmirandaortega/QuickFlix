@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+ 
+<h1>QuickFlix</h1>
+<div class="col">
+   <div class="about">
+       {%if searched%}
+       <h2>You Searched For {{ searched }}</h2>
+       <br/>
+       {% for movie in movies %}
+            <a href ="{% url 'detail' movie.id%}">{{ movie.name}} - {{ movie.genre}} - {{ movie.image}} - {{ movie.description}}</a><br/>
+
+       {% endfor %}
+       {% else %}
+        <h2> What would you like to Watch? </h2>
+       {% endif %}
+       
+      
+       {% if user.is_authenticated %}
+       <div><a class="waves-effect waves-light btn-large" href="{% url 'logout' %}">Log Out</a></div>
+       {% else %}
+      <div><a class="waves-effect waves-light btn-large" href="{% url 'signup' %}">Sign Up</a></div>
+      {% endif %}
+   </div>
+</div>
+{% endblock %}
