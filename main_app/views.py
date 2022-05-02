@@ -95,6 +95,10 @@ def assoc_review(request, movie_id, review_id):
   Movie.objects.get(id=movie_id).reviews.add(review_id)
   return redirect('detail', movie_id=movie_id)
 
+class ReviewDetail(LoginRequiredMixin,CreateView):
+  model = Review
+  fields = ['comment', 'recommend']
+
 class ReviewCreate(LoginRequiredMixin,CreateView):
   model = Review
   fields = ['comment', 'recommend']
