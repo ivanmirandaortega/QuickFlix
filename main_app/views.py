@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
-from main_app.models import GENRES, Movie, Favorite, Review
+from main_app.models import GENRES, Movie, Review, Favorite
 from .forms import ReviewForm
 
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
@@ -55,6 +55,7 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def movies_index(request):
   movies = Movie.objects.all()
   return render(request, 'movies/index.html', {'movies': movies})
@@ -119,7 +120,7 @@ class ReviewUpdate(LoginRequiredMixin,CreateView):
 
 class ReviewDelete(LoginRequiredMixin,CreateView):
   model = Review
-  fields = ['comment', 'recommend']
+  # fields = ['comment', 'recommend']
   success_url = '/movies/'
 
 def movies_detail(request, movie_id):
