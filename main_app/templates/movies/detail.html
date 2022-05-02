@@ -22,8 +22,6 @@
 
 <h2>Add Review</h2>
 
-<!-- Leaving the action empty makes the form post to the same url used to display it -->
-<!-- new code below -->
 <div class="col s6">
   <form method="post" action="{% url 'add_review' movie.id %}">
   
@@ -32,8 +30,8 @@
     <input type="submit" class="btn" value="Add Review">
   </form>
 </div>
-  <!-- below all HTML -->
-  <!-- </script> -->
+
+
   <table class="striped">
     <thead>
       <tr>
