@@ -33,7 +33,7 @@
         <tr>
           <td>{{review.comment}} </td>
           <td>{{review.recommend|yesno:"Would Recommend,Would not Recommend" }}</td>
-          <td><a href="{% url 'review_delete' review.id %}">delete</a></td>
+          <td><a href="{% url 'review_update' review.id %}">Edit</a></td>
         </tr>
         {% endfor %}
         </tbody>

@@ -120,7 +120,7 @@ class ReviewUpdate(LoginRequiredMixin,CreateView):
 
 class ReviewDelete(LoginRequiredMixin,CreateView):
   model = Review
-  # fields = ['comment', 'recommend']
+  fields = ['comment', 'recommend']
   success_url = '/movies/'
 
 def movies_detail(request, movie_id):
