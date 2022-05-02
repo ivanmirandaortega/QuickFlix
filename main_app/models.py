@@ -3,18 +3,18 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 GENRES = (
-    ('RC', 'Romantic Comedy'),
-    ('TR', 'Thrillers'),
-    ('DR', 'Drama'),
-    ('CO', 'Comedy'),
-    ('DO', 'Documentary'),
-    ('FA', 'Family')
+    ('Romantic Comedy','RC'),
+    ('Thrillers','TR',),
+    ('Drama','DR'),
+    ('Comedy','CO'),
+    ('Documentary','DO'),
+    ('Family','FA')
 )
 class Favorite(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=600)
     image = models.CharField(max_length=250)
     genre = models.CharField(
-        max_length=2,
+        max_length=15,
         #choices
         choices=GENRES,
         default=GENRES[0][0]
@@ -33,7 +33,7 @@ class Movie(models.Model):
     movielink = models.CharField(max_length=250, default = '')
     movieposter = models.CharField(max_length=250)
     genre = models.CharField(
-		max_length=2,
+		max_length=15,
 		#choices
 		choices=GENRES,
 		default=GENRES[0][0]
@@ -49,3 +49,4 @@ class Review(models.Model):
 
     def __str__(self):
         return f"The user {self.user} has id of {self.id}"
+
