@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 
@@ -9,9 +10,15 @@
 <form action="" method="POST">
 	{% csrf_token %}
 	<table>
-		{{ form.as_table }}
-	</table>
+		Comment:{{ form.comment }}
+		<label>
+			<input type="checkbox" name="recommend">
+			<span>Would Recommend {{ form.recommend }}</span>
+			</label>
+		</table>
 
 	<input type="submit" value="submit!" class="btn" />
 </form>
 {% endblock content %}
+
+
