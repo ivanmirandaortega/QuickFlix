@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <tr>
+          <th>Reviews</th>
+          <th>Recommendations</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for review in movie.review_set.all %}
+        <tr>
+          <td>{{review.comment}}</td>
+          <td>{{review.recommend|yesno:"Would Recommend,Would not Recommend" }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+  </div>
+
+{% endblock %}

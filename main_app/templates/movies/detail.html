@@ -5,9 +5,10 @@
 
 <div class="row">
   <div class="col s6"> 
-      <div>
-        <img src="{{movie.image}}" alt="" class="responsive-img">
-      </div>
+    <div>
+      <img src="{{movie.image}}" alt="" class="responsive-img">
+      <div><a class="waves-effect waves-light btn-large" href="{{movie.movielink}}">Watch Now!</a></div>
+    </div>
   </div>
   
   <div class="col s6">
@@ -15,43 +16,36 @@
       <p>Title: {{movie.name}}</p>
       <p>Genre: {{movie.get_genre_display}}</p>
       <p>Description: {{movie.description}}</p>
-      <div><a class="waves-effect waves-light btn-large" href="{{movie.movielink}}">Watch Now!</a></div>
     </div>
   </div>
-</div>
-
-<h2>Add Review</h2>
-
-<!-- Leaving the action empty makes the form post to the same url used to display it -->
-<!-- new code below -->
-<div class="col s6">
-  <form method="post" action="{% url 'add_review' movie.id %}">
-  
-    {% csrf_token %}
-    {{ review_form.as_p }}
-    <input type="submit" class="btn" value="Add Review">
-  </form>
-</div>
-  <!-- below all HTML -->
-  <!-- </script> -->
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>Reviews</th>
-        <th>Recommendations</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for review in movie.review_set.all %}
-      <tr>
-        <td>{{review.comment}}</td>
-        <td>{{review.recommend|yesno:"Would Recommend,Would not Recommend" }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="col s6 review">
+    <h2>Add Review</h2>
+    <form method="post" action="{% url 'add_review' movie.id %}">
+      {% csrf_token %}
+      <p>{{ review_form.as_p }}</p>
+      <input type="submit" class="btn" value="Add Review">
+    </form>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Reviews</th>
+          <th>Recommendations</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for review in movie.review_set.all %}
+        <tr>
+          <td>{{review.comment}}</td>
+          <td>{{review.recommend|yesno:"Would Recommend,Would not Recommend" }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
   </div>
-  </div>
-
+</div>
+<div class="card-action">
+</div>
+<a href="{% url 'review_update' movie.id %}">Edit</a>
+<a href="{% url 'review_delete' movie.id %}">Delete</a>
 
 {% endblock %}
