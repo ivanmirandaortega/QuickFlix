@@ -124,6 +124,8 @@ class ReviewDelete(LoginRequiredMixin,CreateView):
   success_url = '/movies/'
 
 def movies_detail(request, movie_id):
+  
+
     movie = Movie.objects.get(id=movie_id)
     # create an instance of FeedingForm
     review_form = ReviewForm()
