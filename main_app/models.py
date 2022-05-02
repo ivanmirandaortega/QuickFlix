@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+
 GENRES = (
     ('Romantic Comedy','RC'),
     ('Thrillers','TR',),
@@ -43,12 +44,12 @@ class Movie(models.Model):
 
 class Review(models.Model):
     comment = models.CharField(max_length=100)
-    recommend = models.BooleanField(default=False)
+    recommend = models.BooleanField('Would Recommend')
     movies = models.ManyToManyField(Movie)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default = '1')
 
     def __str__(self):
-        return f"The user {self.user} has id of {self.id}"
+        return f"The user {self.user} has id of {self.id} and {self.recommend}"
 
     def get_absolute_url(self):
         return reverse('review_detail', kwargs={'pk': self.id})

@@ -79,6 +79,7 @@ def add_review(request, movie_id):
 	form = ReviewForm(request.POST)
 	# validate
 	if form.is_valid():
+  
 		# do somestuff
 		# creates an instance of out feeding to be put in the database
 		# lets not save it yet, commit=False because we didnt add the foreign key
@@ -102,6 +103,7 @@ class ReviewDetail(LoginRequiredMixin,CreateView):
 class ReviewCreate(LoginRequiredMixin,CreateView):
   model = Review
   fields = ['comment', 'recommend']
+
     # This inherited method is called when a
   # valid cat form is being submitted
   def form_valid(self, form):
