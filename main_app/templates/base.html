@@ -24,11 +24,12 @@
                         <li><a href="{% url 'index' %}">All Movies</a></li>
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'about' %}">About</a></li>
-                        <li><form method="post" action="{% url 'search-movies' %}">
-                            {% csrf_token %}
-                            <input type="search" placeholder="Search Movies" aria-label="Search" name="searched">
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
-                        </form></li>
+                        <li><form method="post" action="{% url 'search-movies' %}" class="nav-search">
+                                {% csrf_token %}
+                                <input type="search" placeholder="Search Movies" aria-label="Search" name="searched" id="search">
+                                <button class="btn btn-outline-secondary" type="submit" id="search-btn">Search</button>
+                            </form>
+                        </li>
      
                         <li><a href="{% url 'logout' %}">Log Out</a></li>
                         {% else %}
@@ -45,7 +46,7 @@
         {% endblock %}
     </main>
     <footer class="page-footer">
-        <div class="center">All Rights Reserved, &copy; 2022 QuickFlix &nbsp;</div>
+        <div class="center">All Rights Reserved, &copy; 2022 QuickFlix</div>
     </footer>
 </body>
 </html>
