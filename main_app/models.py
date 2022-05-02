@@ -51,4 +51,4 @@ class Review(models.Model):
         return f"The user {self.user} has id of {self.id}"
 
     def get_absolute_url(self):
-        return reverse('movies_detail', kwargs={'pk': self.id})
+        return reverse('review_detail', kwargs={'pk': self.id})
