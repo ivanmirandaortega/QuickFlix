@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
-from main_app.models import GENRES, Movie, Review
+from main_app.models import GENRES, Movie, Favorite
 from .forms import ReviewForm
 
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
@@ -124,3 +124,7 @@ def movies_detail(request, movie_id):
     return render(request, 'movies/detail.html', {'movie': movie, 'review_form': review_form,
     
     })
+
+def favorites(request):
+	return render(request, 'movies/favorites.html')
+
