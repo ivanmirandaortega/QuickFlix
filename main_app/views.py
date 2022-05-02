@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
-from main_app.models import GENRES, Movie
+from main_app.models import GENRES, Movie, Review
 from .forms import ReviewForm
 
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
@@ -71,6 +71,8 @@ class MovieCreate(LoginRequiredMixin,CreateView):
     # Let the CreateView do its job as usual
     return super().form_valid(form)
 
+
+
 def add_review(request, movie_id):
 
 	# create a ModelForm Instance using the data in the request
@@ -89,7 +91,22 @@ def add_review(request, movie_id):
 
 	return redirect('detail', movie_id=movie_id)
 
+def assoc_review(request, movie_id, review_id):
+  Movie.objects.get(id=movie_id).reviews.add(review_id)
+  return redirect('detail', movie_id=movie_id)
 
+class ReviewCreate(LoginRequiredMixin,CreateView):
+  model = Review
+  fields = ['comment', 'recommend']
+
+class ReviewUpdate(LoginRequiredMixin,CreateView):
+  model = Review
+  fields = ['comment', 'recommend']
+
+class ReviewDelete(LoginRequiredMixin,CreateView):
+  model = Review
+  fields = ['comment', 'recommend']
+  success_url = '/movies/'
 
 def movies_detail(request, movie_id):
     movie = Movie.objects.get(id=movie_id)
