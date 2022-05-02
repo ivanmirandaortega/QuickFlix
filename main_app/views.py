@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
-from main_app.models import GENRES, Movie, Review
+from main_app.models import GENRES, Movie, Favorite, Review
 from .forms import ReviewForm
 
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
@@ -98,6 +98,14 @@ def assoc_review(request, movie_id, review_id):
 class ReviewCreate(LoginRequiredMixin,CreateView):
   model = Review
   fields = ['comment', 'recommend']
+    # This inherited method is called when a
+  # valid cat form is being submitted
+  def form_valid(self, form):
+    # Assign the logged in user (self.request.user)
+    form.instance.user = self.request.user  # form.instance is the cat
+    # Let the CreateView do its job as usual
+    return super().form_valid(form)
+
 
 class ReviewUpdate(LoginRequiredMixin,CreateView):
   model = Review
@@ -116,3 +124,7 @@ def movies_detail(request, movie_id):
     return render(request, 'movies/detail.html', {'movie': movie, 'review_form': review_form,
     
     })
+
+def favorites(request):
+	return render(request, 'movies/favorites.html')
+
