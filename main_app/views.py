@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from main_app.models import GENRES, Movie, Review, Favorite
 from .forms import ReviewForm
 
@@ -114,7 +114,7 @@ class ReviewCreate(LoginRequiredMixin,CreateView):
     return super().form_valid(form)
 
 
-class ReviewUpdate(LoginRequiredMixin,CreateView):
+class ReviewUpdate(LoginRequiredMixin,UpdateView):
   model = Review
   fields = ['comment', 'recommend']
 
