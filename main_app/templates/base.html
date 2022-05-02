@@ -26,7 +26,7 @@
                         <li><a href="{% url 'about' %}">About</a></li>
                         <li><form method="post" action="{% url 'search-movies' %}">
                             {% csrf_token %}
-                            <input type="search" placeholder="Search Movies" aria-label="Search" name="searched">
+                            <input type="search" placeholder="Search Genres" aria-label="Search" name="searched">
                             <button class="btn btn-outline-secondary" type="submit">Search</button>
                         </form></li>
                         <li><a href="{% url 'favorites' %}">My Favorites</a></li>
