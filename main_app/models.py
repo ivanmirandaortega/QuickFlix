@@ -45,7 +45,7 @@ class Movie(models.Model):
 class Review(models.Model):
     comment = models.CharField(max_length=100)
     recommend = models.BooleanField('Would Recommend')
-    movies = models.ManyToManyField(Movie)
+    movies = models.ForeignKey(Movie, on_delete=models.CASCADE, default = '1')
     user = models.ForeignKey(User, on_delete=models.CASCADE, default = '1')
 
     def __str__(self):
