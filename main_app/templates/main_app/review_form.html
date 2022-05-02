@@ -1,20 +1,17 @@
 {% extends 'base.html' %}
+
+
 {% block content %}
 
-        <tr>
-          <th>Reviews</th>
-          <th>Recommendations</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for review in movie.review_set.all %}
-        <tr>
-          <td>{{review.comment}}</td>
-          <td>{{review.recommend|yesno:"Would Recommend,Would not Recommend" }}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-  </div>
+<h1>Add Review</h1>
 
-{% endblock %}
+<!-- Leaving the action blank will use the same url that was used in order to get the form -->
+<form action="" method="POST">
+	{% csrf_token %}
+	<table>
+		{{ form.as_table }}
+	</table>
+
+	<input type="submit" value="submit!" class="btn" />
+</form>
+{% endblock content %}

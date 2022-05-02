@@ -50,3 +50,5 @@ class Review(models.Model):
     def __str__(self):
         return f"The user {self.user} has id of {self.id}"
 
+    def get_absolute_url(self):
+        return reverse('movies_detail', kwargs={'pk': self.id})
