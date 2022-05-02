@@ -4,13 +4,14 @@ from django.urls import reverse
 
 
 GENRES = (
-    ('Romantic Comedy','RC'),
-    ('Thrillers','TR',),
-    ('Drama','DR'),
-    ('Comedy','CO'),
-    ('Documentary','DO'),
-    ('Family','FA')
+   ('Romantic Comedy','Romantic Comedy'),
+   ('Thrillers','Thrillers',),
+   ('Drama','Drama'),
+   ('Comedy','Comedy'),
+   ('Documentary','Documentary'),
+   ('Family','Family')
 )
+
 class Favorite(models.Model):
     name = models.CharField(max_length=600)
     image = models.CharField(max_length=250)
