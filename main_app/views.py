@@ -10,6 +10,7 @@ from main_app.models import GENRES, Movie, Review, Favorite
 from .forms import ReviewForm
 
 
+
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
 BUCKET = 'myimagebucket28'
 
@@ -92,21 +93,21 @@ def add_review(request, movie_id):
 		new_review.save() # adds the feeding to the database, and the feeding be associated with the cat
 		# with same id as the argument to the function cat_id
 
+
+	return redirect('detail', movie_id=movie_id)
+
 def review_delete(request, pk):
     review = get_object_or_404(Review, pk=pk)  # Get your current cat
 
     if request.method == 'POST':         # If method is POST,
         review.delete()                     # delete the cat.
-        return redirect('/')             # Finally, redirect to the homepage.
+        return redirect('/movies/')             # Finally, redirect to the homepage.
 
     return render(request, 'template_name.html', {'review': review})
     # If method is not POST, render the default template.
     # *Note*: Replace 'template_name.html' with your corresponding template name.
-
-
-
-
-
+  
+  
 def assoc_review(request, movie_id, review_id):
   Movie.objects.get(id=movie_id).reviews.add(review_id)
   return redirect('detail', movie_id=movie_id)
