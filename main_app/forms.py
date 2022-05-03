@@ -4,7 +4,7 @@ from django import forms
 
 
 class ReviewForm(forms.ModelForm):
-    recommend = forms.BooleanField()
+    recommend = forms.BooleanField(required=False)
     class Meta:
         
         model = Review
