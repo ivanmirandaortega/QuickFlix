@@ -24,12 +24,25 @@
     </div>
   </div>
   <div class="col s6 review">
-    <h2>Add Review</h2>
-    <form method="post" action="{% url 'add_review' movie.id %}">
-      {% csrf_token %}
-      <p>{{ review_form.as_p }}</p>
-      <input type="submit" class="btn" value="Add Review">
-    </form>
+
+ <h1>Add Review</h1>
+
+  <!-- Leaving the action blank will use the same url that was used in order to get the form -->
+ <form action="{%url 'add_review' movie.id %}" method="POST">
+	{% csrf_token %}
+	<table>
+		{{ review_form.comment }}
+    <label>
+			<input type="checkbox" name="recommend">
+			<span>Would Recommend {{form.recommend }}</span>
+			</label>
+	</table>
+
+	<input type="submit" value="submit!" class="btn" />
+</form>
+
+
+
     <table class="striped">
       <thead>
         <tr>
@@ -40,17 +53,15 @@
       <tbody>
         {% for review in movie.review_set.all %}
         <tr>
-          <td>{{review.comment}}</td>
+          <td>{{review.comment}} </td>
           <td>{{review.recommend|yesno:"Would Recommend,Would not Recommend" }}</td>
+          <td><a href="{% url 'review_delete' review.id %}">Delete</a></td>
+          <td><a href="{% url 'review_update' review.id %}">Edit</a></td>
         </tr>
         {% endfor %}
         </tbody>
+
+        </div>
     </table>
   </div>
-</div>
-<div class="card-action">
-</div>
-<a href="{% url 'review_update' movie.id %}">Edit</a>
-<a href="{% url 'review_delete' movie.id %}">Delete</a>
-
 {% endblock %}

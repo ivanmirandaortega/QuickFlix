@@ -12,9 +12,9 @@ body {
 	padding-top: 10px;
 }
 
-/* #search {
-	border-bottom: none;
-} */
+#search {
+	color: #fff;
+}
 
 #search-btn {
 	margin-top: 3px;
@@ -137,6 +137,10 @@ li {
 
 .review {
 	flex-direction: column;
+}
+
+#id_comment {
+	color: #fff;
 }
 
 @media screen and (min-width: 1440px) and (max-width: 900px) {
