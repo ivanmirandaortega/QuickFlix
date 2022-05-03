@@ -11,21 +11,7 @@ GENRES = (
    ('Documentary','Documentary'),
    ('Family','Family')
 )
-class Favorite(models.Model):
-    name = models.CharField(max_length=600)
-    image = models.CharField(max_length=250)
-    genre = models.CharField(
-        max_length=15,
-        #choices
-        choices=GENRES,
-        default=GENRES[0][0]
-    )
-    #foreign key linking to a user instance
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.name
-    def get_absolute_url(self):
-        return reverse('favorites') 
+
 
 
 class Movie(models.Model):
@@ -61,19 +47,3 @@ class Review(models.Model):
     def get_absolute_url(self):
         return reverse('review_detail', kwargs={'pk': self.id})
 
-
-class Favorite(models.Model):
-    name = models.CharField(max_length=600)
-    image = models.CharField(max_length=250)
-    genre = models.CharField(
-        max_length=15,
-        #choices
-        choices=GENRES,
-        default=GENRES[0][0]
-    )
-    #foreign key linking to a user instance
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.name
-    def get_absolute_url(self):
-        return reverse('favorites', kwargs={'pk': self.id})
