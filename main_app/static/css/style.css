@@ -12,8 +12,23 @@ body {
 	padding-top: 10px;
 }
 
+.input-field {
+	display: flex;
+	padding-top: 10px;
+}
+
+.input-field:dir() {
+	background-color: red !important;
+}
+
 #search {
 	color: #fff;
+	margin: 12px 5px 0 0;
+	padding-left: 0;
+}
+
+#search:enabled {
+	background-color: transparent;
 }
 
 #search-btn {
@@ -141,6 +156,18 @@ li {
 
 #id_comment {
 	color: #fff;
+}
+
+#edit-input {
+	color: white;
+}
+
+h4 {
+	color: white;
+}
+
+.footer-text {
+	font-size: 10px;
 }
 
 @media screen and (min-width: 1440px) and (max-width: 900px) {
