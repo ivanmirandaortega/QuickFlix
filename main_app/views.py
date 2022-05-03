@@ -85,15 +85,15 @@ def add_review(request, movie_id):
 	# validate
 	if form.is_valid():
   
+
 		# do somestuff
 		# creates an instance of out feeding to be put in the database
-		# lets not save it yet, commit=False because we didnt add the foreign key
-		new_review = form.save(commit=False)
-		#look at the note for cat field in the Feeding Model
-		new_review.movie_id = movie_id
-		new_review.save() # adds the feeding to the database, and the feeding be associated with the cat
-		# with same id as the argument to the function cat_id
 
+		new_review = form.save(commit=False)
+	
+		new_review.movie_id = movie_id
+		new_review.save() 
+    
 
 	return redirect('detail', movie_id=movie_id)
 
