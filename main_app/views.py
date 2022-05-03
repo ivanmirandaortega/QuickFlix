@@ -1,12 +1,13 @@
 from operator import contains
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
-from main_app.models import GENRES, Movie, Favorite
+from main_app.models import GENRES, Movie, Favorite, Review
 from .forms import ReviewForm
+from django.contrib.auth.models import User
 
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
 BUCKET = 'myimagebucket28'
@@ -116,7 +117,20 @@ def movies_detail(request, movie_id):
     return render(request, 'movies/detail.html', {'movie': movie, 'review_form': review_form,
     
     })
+    
 
+@login_required
 def favorites(request):
-	return render(request, 'movies/favorites.html')
+    new = Movie.newmanager.filter(favorites=request.user)
+    return render(request, 'movies/favorites.html', {'favorites': favorites, 'new': new})
 
+
+@login_required
+def add_to_favorites(request, id):
+    movie = get_object_or_404(Movie, id=id)
+    if movie.favorites.filter(id=request.user.id).exists():
+        movie.favorites.remove(request.user)
+    else:
+        movie.favorites.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    
