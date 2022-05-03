@@ -12,21 +12,7 @@ GENRES = (
    ('Family','Family')
 )
 
-class Favorite(models.Model):
-    name = models.CharField(max_length=600)
-    image = models.CharField(max_length=250)
-    genre = models.CharField(
-        max_length=15,
-        #choices
-        choices=GENRES,
-        default=GENRES[0][0]
-    )
-    #foreign key linking to a user instance
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.name
-    def get_absolute_url(self):
-        return reverse('favorites', kwargs={'pk': self.id})
+
 
 class Movie(models.Model):
     name = models.CharField(max_length=100)
@@ -40,13 +26,19 @@ class Movie(models.Model):
 		choices=GENRES,
 		default=GENRES[0][0]
 	)
+    class NewManager(models.Manager): 
+        def get_queryset(self):
+            return super().get_queryset() 
+    favorites = models.ManyToManyField(User, default=None, blank=True) 
+    objects = models.Manager()
+    newmanager = NewManager()
     def __str__(self):
         return f"The Movie {self.name} has id of {self.id}"
 
 class Review(models.Model):
     comment = models.CharField(max_length=100)
     recommend = models.BooleanField('Would Recommend')
-    movies = models.ForeignKey(Movie, on_delete=models.CASCADE, default = '1')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, default = '1')
     user = models.ForeignKey(User, on_delete=models.CASCADE, default = '1')
 
     def __str__(self):
@@ -54,3 +46,4 @@ class Review(models.Model):
 
     def get_absolute_url(self):
         return reverse('review_detail', kwargs={'pk': self.id})
+

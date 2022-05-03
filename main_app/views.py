@@ -1,12 +1,16 @@
 from operator import contains
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
-from main_app.models import GENRES, Movie, Favorite, Review
+from django.views.generic.edit import CreateView, UpdateView
+from main_app.models import GENRES, Movie, Review
 from .forms import ReviewForm
+from django.contrib.auth.models import User
+
+
 
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
 BUCKET = 'myimagebucket28'
@@ -55,6 +59,7 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def movies_index(request):
   movies = Movie.objects.all()
   return render(request, 'movies/index.html', {'movies': movies})
@@ -92,6 +97,33 @@ def add_review(request, movie_id):
 
 	return redirect('detail', movie_id=movie_id)
 
+def review_delete(request, pk):
+    review = get_object_or_404(Review, pk=pk)  
+
+    if request.method == 'POST':         # If method is POST,
+        review.delete()                     # delete the review.
+        return redirect('/movies/')             # Finally, redirect to the homepage.
+
+    return render(request, 'review_delete.html', {'review': review})
+    # If method is not POST, render the default template.
+    # *Note*: Replace 'template_name.html' with your corresponding template name.
+  
+def review_update(request, pk):
+    context = {}
+    review = get_object_or_404(Review, pk=pk)
+    form = ReviewForm(request.POST or None, instance = review)
+    if form.is_valid():
+      form.save()
+      return redirect('/movies/')
+
+
+    context["form"] = form
+
+    return render(request, 'review_update.html', {'review': review})
+
+
+
+
 def assoc_review(request, movie_id, review_id):
   Movie.objects.get(id=movie_id).reviews.add(review_id)
   return redirect('detail', movie_id=movie_id)
@@ -100,20 +132,9 @@ class ReviewDetail(LoginRequiredMixin,CreateView):
   model = Review
   fields = ['comment', 'recommend']
 
-class ReviewCreate(LoginRequiredMixin,CreateView):
-  model = Review
-  fields = ['comment', 'recommend']
-
-    # This inherited method is called when a
-  # valid cat form is being submitted
-  def form_valid(self, form):
-    # Assign the logged in user (self.request.user)
-    form.instance.user = self.request.user  # form.instance is the cat
-    # Let the CreateView do its job as usual
-    return super().form_valid(form)
 
 
-class ReviewUpdate(LoginRequiredMixin,CreateView):
+class ReviewUpdate(LoginRequiredMixin,UpdateView):
   model = Review
   fields = ['comment', 'recommend']
 
@@ -123,6 +144,8 @@ class ReviewDelete(LoginRequiredMixin,CreateView):
   success_url = '/movies/'
 
 def movies_detail(request, movie_id):
+  
+
     movie = Movie.objects.get(id=movie_id)
     # create an instance of FeedingForm
     review_form = ReviewForm()
@@ -130,7 +153,21 @@ def movies_detail(request, movie_id):
     return render(request, 'movies/detail.html', {'movie': movie, 'review_form': review_form,
     
     })
+    
 
+@login_required
 def favorites(request):
-	return render(request, 'movies/favorites.html')
+    new = Movie.newmanager.filter(favorites=request.user)
+    return render(request, 'movies/favorites.html', {'favorites': favorites, 'new': new})
 
+
+@login_required
+def add_to_favorites(request, id):
+    movie = get_object_or_404(Movie, id=id)
+    if movie.favorites.filter(id=request.user.id).exists():
+        movie.favorites.remove(request.user)
+    else:
+        movie.favorites.add(request.user)
+    return redirect('/favorites/')
+    # return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    
