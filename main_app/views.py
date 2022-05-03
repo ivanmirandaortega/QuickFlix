@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from main_app.models import GENRES, Movie, Review, Favorite
@@ -97,17 +97,31 @@ def add_review(request, movie_id):
 	return redirect('detail', movie_id=movie_id)
 
 def review_delete(request, pk):
-    review = get_object_or_404(Review, pk=pk)  # Get your current cat
+    review = get_object_or_404(Review, pk=pk)  
 
     if request.method == 'POST':         # If method is POST,
-        review.delete()                     # delete the cat.
+        review.delete()                     # delete the review.
         return redirect('/movies/')             # Finally, redirect to the homepage.
 
-    return render(request, 'template_name.html', {'review': review})
+    return render(request, 'review_delete.html', {'review': review})
     # If method is not POST, render the default template.
     # *Note*: Replace 'template_name.html' with your corresponding template name.
   
-  
+def review_update(request, pk):
+    context = {}
+    review = get_object_or_404(Review, pk=pk)
+    form = ReviewForm(request.POST or None, instance = review)
+    if form.is_valid():
+      form.save()
+
+
+    context["form"] = form
+
+    return render(request, 'review_update.html', {'review': review})
+
+
+
+
 def assoc_review(request, movie_id, review_id):
   Movie.objects.get(id=movie_id).reviews.add(review_id)
   return redirect('detail', movie_id=movie_id)
@@ -116,17 +130,6 @@ class ReviewDetail(LoginRequiredMixin,CreateView):
   model = Review
   fields = ['comment', 'recommend']
 
-# class ReviewCreate(LoginRequiredMixin,CreateView):
-#   model = Review
-#   fields = ['comment', 'recommend']
-
-#     # This inherited method is called when a
-#   # valid cat form is being submitted
-#   def form_valid(self, form):
-#     # Assign the logged in user (self.request.user)
-#     form.instance.user = self.request.user  # form.instance is the cat
-#     # Let the CreateView do its job as usual
-#     return super().form_valid(form)
 
 
 class ReviewUpdate(LoginRequiredMixin,UpdateView):
