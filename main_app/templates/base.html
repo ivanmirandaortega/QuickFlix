@@ -26,7 +26,7 @@
                         <li><a href="{% url 'about' %}">About</a></li>
                         <li><form method="post" action="{% url 'search-movies' %}" class="nav-search">
                             {% csrf_token %}
-                          
+
                             <input type="search" placeholder="Search Genres" aria-label="Search" name="searched">
                             <button class="btn btn-outline-secondary" type="submit">Search</button>
 
@@ -34,7 +34,7 @@
                         <li><a href="{% url 'favorites' %}">My Favorites</a></li>
                             </form>
                         </li>
-     
+
                         <li><a href="{% url 'logout' %}">Log Out</a></li>
                         {% else %}
                         <li><a href="{% url 'signup' %}" class="btn-small">Sign Up</a></li>
