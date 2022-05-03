@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
-from main_app.models import GENRES, Movie, Review, Favorite
+from main_app.models import GENRES, Movie, Review
 from .forms import ReviewForm
 from django.contrib.auth.models import User
 
