@@ -114,6 +114,7 @@ def review_update(request, pk):
     form = ReviewForm(request.POST or None, instance = review)
     if form.is_valid():
       form.save()
+      return redirect('/movies/')
 
 
     context["form"] = form
@@ -167,5 +168,6 @@ def add_to_favorites(request, id):
         movie.favorites.remove(request.user)
     else:
         movie.favorites.add(request.user)
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    return redirect('/favorites/')
+    # return HttpResponseRedirect(request.META['HTTP_REFERER'])
     
