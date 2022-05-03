@@ -11,6 +11,12 @@
     </div>
   </div>
   
+  <div class="col s6"> 
+    <div>
+      <div><a class="waves-effect waves-light btn-large" href="{% url 'add_to_favorites' movie.id %}">Add To Favorites</a></div>
+    </div>
+  </div> 
+  
   <div class="col s6">
     <div class="block">
       <p>Title: {{movie.name}}</p>

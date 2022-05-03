@@ -152,5 +152,17 @@ def movies_detail(request, movie_id):
     
     })
 
+@login_required
 def favorites(request):
-	return render(request, 'movies/favorites.html')
+	new = Movie.newmanager.filter(favorites=request.user)
+	return render(request, 'movies/favorites.html', {'favorites': favorites, 'new': new})
+  
+@login_required
+def add_to_favorites(request, id):
+	movie = get_object_or_404(Movie, id=id)
+	if movie.favorites.filter(id=request.user.id).exists():
+		movie.favorites.remove(request.user)
+	else:
+		movie.favorites.add(request.user)
+	return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
