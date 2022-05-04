@@ -58,7 +58,6 @@ def home(request):
 
 
 
-@login_required
 def movies_index(request):
   movies = Movie.objects.all()
   return render(request, 'movies/index.html', {'movies': movies})
@@ -76,7 +75,7 @@ class MovieCreate(LoginRequiredMixin,CreateView):
     return super().form_valid(form)
 
 
-
+@login_required
 def add_review(request, movie_id):
 
 	# create a ModelForm Instance using the data in the request
