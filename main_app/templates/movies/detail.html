@@ -10,7 +10,6 @@
       <div><a class="waves-effect waves-light btn-large" href="{{movie.movielink}}">Watch Now!</a></div>
     </div>
   </div>
-<<<<<<< HEAD
   
   {% if favorite %}
   <div class="col s6"> 
@@ -19,19 +18,13 @@
     </div>
   </div> 
 {% else %}
-=======
-
->>>>>>> main
   <div class="col s6"> 
     <div>
       <div><a class="waves-effect waves-light btn-large" href="{% url 'add_to_favorites' movie.id %}">Add To Favorites</a></div>
     </div>
   </div> 
-<<<<<<< HEAD
 {% endif %}
 
-=======
->>>>>>> main
   <div class="col s6">
     <div class="block">
       <p>Title: {{movie.name}}</p>
