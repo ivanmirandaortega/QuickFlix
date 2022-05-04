@@ -1,24 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
- 
+
 <h1>QuickFlix</h1>
 <div class="col">
    <div class="about">
-       {%if searched%}
-       <h2>You Searched For {{ searched }}</h2>
-       <br/>
-       {% for movie in movies %}
-            <a href ="{% url 'detail' movie.id%}">{{ movie.name}} - {{ movie.genre}} - {{ movie.image}} - {{ movie.description}}</a><br/>
-
-       {% endfor %}
-       {% else %}
-        <h2> What would you like to Watch? </h2>
-       {% endif %}
-       
+      {%if searched%}
+      <h2>You Searched For <span class="white-text">{{ searched }}</span></h2>
+      <table>
+         <thead>
+            <tr>
+               <th>Movie Name</th>
+               <th>Movie Genre</th>
+               <th>Movie Description</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               {% for movie in movies %}
+               <td><a href="{% url 'detail' movie.id%}">{{ movie.name}}</a></td>
+               <td>{{ movie.genre }}</td>
+               <td>{{ movie.description }}</td>
+            </tr>
+         </tbody>
+         {% endfor %}
+      </table>
+      {% else %}
+      <h2> What would you like to Watch? </h2>
+      {% endif %}
       
-       {% if user.is_authenticated %}
-       <div><a class="waves-effect waves-light btn-large" href="{% url 'logout' %}">Log Out</a></div>
-       {% else %}
+      {% if user.is_authenticated %}
+      <!-- <div><a class="waves-effect waves-light btn-large" href="{% url 'logout' %}">Log Out</a></div> -->
+      {% else %}
       <div><a class="waves-effect waves-light btn-large" href="{% url 'signup' %}">Sign Up</a></div>
       {% endif %}
    </div>
