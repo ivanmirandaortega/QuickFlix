@@ -6,11 +6,11 @@
 <div class="row">
     {% for movie in new %}
         <div class="col s3 m3 13">
-            <p>Title: {{movie.name}}</p>
-            <p>Genre: {{movie.get_genre_display}}</p>
-            <p><img src="{{ movie.image }}" alt="" class="responsive-img"></p>
+            <a href="{% url 'detail' movie.id%}">
+                <img src="{{ movie.image }}" alt="" class="responsive-img">
+            </a> 
         </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 
 {% endblock content %}
