@@ -46,4 +46,3 @@ class Review(models.Model):
 
     def get_absolute_url(self):
         return reverse('review_detail', kwargs={'pk': self.id})
-
