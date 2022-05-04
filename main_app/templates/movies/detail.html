@@ -10,6 +10,7 @@
       <div><a class="waves-effect waves-light btn-large" href="{{movie.movielink}}">Watch Now!</a></div>
     </div>
   </div>
+<<<<<<< HEAD
   
   {% if favorite %}
   <div class="col s6"> 
@@ -18,13 +19,19 @@
     </div>
   </div> 
 {% else %}
+=======
+
+>>>>>>> main
   <div class="col s6"> 
     <div>
       <div><a class="waves-effect waves-light btn-large" href="{% url 'add_to_favorites' movie.id %}">Add To Favorites</a></div>
     </div>
   </div> 
+<<<<<<< HEAD
 {% endif %}
 
+=======
+>>>>>>> main
   <div class="col s6">
     <div class="block">
       <p>Title: {{movie.name}}</p>
@@ -42,9 +49,9 @@
 	<table>
 		{{ review_form.comment }}
     <label>
-			<input type="checkbox" name="recommend">
-			<span>Would Recommend {{form.recommend }}</span>
-			</label>
+      <input type="hidden" name="{{form.recommend }}" value="False" />
+			<input type="checkbox" name="{{form.recommend }}" value="True"/>
+		<span>Would Recommend {{eview_form..recommend }}</span></label>
 	</table>
 
 	<input type="submit" value="submit!" class="btn" />

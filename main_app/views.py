@@ -1,13 +1,14 @@
 from operator import contains
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
-from main_app.models import GENRES, Movie, Review, Favorite
+from main_app.models import GENRES, Movie, Review
 from .forms import ReviewForm
+from django.contrib.auth.models import User
 
 
 
@@ -84,15 +85,15 @@ def add_review(request, movie_id):
 	# validate
 	if form.is_valid():
   
+
 		# do somestuff
 		# creates an instance of out feeding to be put in the database
-		# lets not save it yet, commit=False because we didnt add the foreign key
-		new_review = form.save(commit=False)
-		#look at the note for cat field in the Feeding Model
-		new_review.movie_id = movie_id
-		new_review.save() # adds the feeding to the database, and the feeding be associated with the cat
-		# with same id as the argument to the function cat_id
 
+		new_review = form.save(commit=False)
+	
+		new_review.movie_id = movie_id
+		new_review.save() 
+    
 
 	return redirect('detail', movie_id=movie_id)
 
@@ -113,6 +114,7 @@ def review_update(request, pk):
     form = ReviewForm(request.POST or None, instance = review)
     if form.is_valid():
       form.save()
+      return redirect('/movies/')
 
 
     context["form"] = form
@@ -153,18 +155,21 @@ def movies_detail(request, movie_id):
     return render(request, 'movies/detail.html', {'movie': movie, 'review_form': review_form, 'favorite': favorite
     
     })
+    
 
 @login_required
 def favorites(request):
-	new = Movie.newmanager.filter(favorites=request.user)
-	return render(request, 'movies/favorites.html', {'favorites': favorites, 'new': new})
-  
+    new = Movie.newmanager.filter(favorites=request.user)
+    return render(request, 'movies/favorites.html', {'favorites': favorites, 'new': new})
+
+
 @login_required
 def add_to_favorites(request, id):
-	movie = get_object_or_404(Movie, id=id)
-	if movie.favorites.filter(id=request.user.id).exists():
-		movie.favorites.remove(request.user)
-	else:
-		movie.favorites.add(request.user)
-	return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
+    movie = get_object_or_404(Movie, id=id)
+    if movie.favorites.filter(id=request.user.id).exists():
+        movie.favorites.remove(request.user)
+    else:
+        movie.favorites.add(request.user)
+    return redirect('/favorites/')
+    # return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    
