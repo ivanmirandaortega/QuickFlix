@@ -18,7 +18,7 @@ BUCKET = 'myimagebucket28'
 def search_movies(request):
   if request.method == "POST":
     searched = request.POST['searched']
-    movies = Movie.objects.filter(genre__contains=searched)
+    movies = Movie.objects.filter(genre__icontains=searched)
     return render(request,
     'movies/search_movies.html',
     {'searched': searched,
@@ -56,8 +56,7 @@ from django.http import HttpResponse
 def home(request):
   return render(request,'home.html')
 
-def about(request):
-  return render(request, 'about.html')
+
 
 @login_required
 def movies_index(request):
