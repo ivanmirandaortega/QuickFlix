@@ -11,12 +11,20 @@
     </div>
   </div>
   
+  {% if favorite %}
+  <div class="col s6"> 
+    <div>
+      <div><a class="waves-effect waves-light btn-large" href="{% url 'add_to_favorites' movie.id %}">Remove From Favorites</a></div>
+    </div>
+  </div> 
+{% else %}
   <div class="col s6"> 
     <div>
       <div><a class="waves-effect waves-light btn-large" href="{% url 'add_to_favorites' movie.id %}">Add To Favorites</a></div>
     </div>
   </div> 
-  
+{% endif %}
+
   <div class="col s6">
     <div class="block">
       <p>Title: {{movie.name}}</p>
