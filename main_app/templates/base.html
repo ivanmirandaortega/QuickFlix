@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
 </head>
 <body>
     <header class="navbar-fixed">
@@ -23,19 +24,18 @@
                     <ul class="right">
                         <li><a href="{% url 'index' %}">All Movies</a></li>
                         {% if user.is_authenticated %}
-                        <li><a href="{% url 'about' %}">About</a></li>
-                        <li><form method="post" action="{% url 'search-movies' %}" class="nav-search">
+                        <li><form method="post" action="{% url 'search-movies' %}" class="input-field">
                             {% csrf_token %}
-
-                            <input type="search" placeholder="Search Genres" aria-label="Search" name="searched">
-                            <button class="btn btn-outline-secondary" type="submit">Search</button>
-
+                            <input type="search" placeholder="Search Genres" aria-label="Search" name="searched" id="search">
+                            <button class="btn-small btn-outline-secondary" type="submit" id="search-btn">Search</button>
                         </form></li>
-                        <li><a href="{% url 'favorites' %}">My Favorites</a></li>
-                            </form>
-                        </li>
-
-                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        <ul id="dropdown1" class="dropdown-content">
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li><a href="{% url 'favorites' %}">My Favorites</a></li>]
+                            <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        </ul>
+                        <li><a href="#" class="dropdown-trigger" data-target="dropdown1">{{ user }}<i class="material-icons right"></i></a></li>
+                        
                         {% else %}
                         <li><a href="{% url 'signup' %}" class="btn-small">Sign Up</a></li>
                         <li><a href="{% url 'login' %}">Log In</a></li>
@@ -50,7 +50,8 @@
         {% endblock %}
     </main>
     <footer class="page-footer">
-        <div class="center">All Rights Reserved, &copy; 2022 QuickFlix</div>
+        <div class="center"><p class="footer-text">All Rights Reserved, &copy; 2022 QuickFlix</p>
+    </div>
     </footer>
 </body>
 </html>

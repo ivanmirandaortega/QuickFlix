@@ -149,8 +149,10 @@ def movies_detail(request, movie_id):
     movie = Movie.objects.get(id=movie_id)
     # create an instance of FeedingForm
     review_form = ReviewForm()
-
-    return render(request, 'movies/detail.html', {'movie': movie, 'review_form': review_form,
+    favorite = bool
+    if movie.favorites.filter(id=request.user.id).exists(): #checks if the user's id exists and see if they have added the movie to their favorites page
+      favorite = True
+    return render(request, 'movies/detail.html', {'movie': movie, 'review_form': review_form, 'favorite': favorite
     
     })
     
