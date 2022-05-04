@@ -55,6 +55,7 @@
     <table class="striped">
       <thead>
         <tr>
+          <th>User</th>
           <th>Reviews</th>
           <th>Recommendations</th>
         </tr>
@@ -62,11 +63,14 @@
       <tbody>
         {% for review in movie.review_set.all %}
         <tr>
+          <td>{{review.user}} </td>
           <td>{{review.comment}} </td>
           <td>{{review.recommend|yesno:"Would Recommend,Would not Recommend" }}</td>
+          {% if user == review.user %}
           <td><a href="{% url 'review_delete' review.id %}">Delete</a></td>
           <td><a href="{% url 'review_update' review.id %}">Edit</a></td>
         </tr>
+        {% endif %}
         {% endfor %}
         </tbody>
 
