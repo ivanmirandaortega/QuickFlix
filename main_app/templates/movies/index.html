@@ -7,7 +7,7 @@
 {% for movie in movies %}
     <div class="col s3 m3 13">
         <a href="{% url 'detail' movie.id%}">
-            <img src="{{ movie.image }}" alt="" class="responsive-img">
+            <img src="{{ movie.movieposter }}" alt="" class="responsive-img">
         </a>
     </div>
     {% endfor %}
