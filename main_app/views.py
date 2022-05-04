@@ -18,7 +18,7 @@ BUCKET = 'myimagebucket28'
 def search_movies(request):
   if request.method == "POST":
     searched = request.POST['searched']
-    movies = Movie.objects.filter(genre__contains=searched)
+    movies = Movie.objects.filter(genre__icontains=searched)
     return render(request,
     'movies/search_movies.html',
     {'searched': searched,
