@@ -19,7 +19,6 @@
 * Django Template Language
 * PSQL
 * Python
-* Bootstrap
 * Materialize 
 * CSS
 * HTML
@@ -30,11 +29,9 @@
 Launch the app! []
 
 ## Project Planning
-### [WireFrames](https://whimsical.com/project3-4hpgi2nY6tSxAELzyajoQy)
 ### [Pitch-Deck](https://docs.google.com/presentation/d/1hmguBs1THDCY0P-Mg9VGl_6_xUErjMW1Feb-yPeeGTw/edit#slide=id.gf3f5369fea_1_5)
-
+### [Wireframes](https://whimsical.com/project3-4hpgi2nY6tSxAELzyajoQy)
 ### [Trello-Board](https://trello.com/b/bWdQSGm6/flickpic)
-
 ### ERD
 ![ERD](/main_app/static/images/erd.png)
 

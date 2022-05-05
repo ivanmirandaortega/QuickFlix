@@ -1,9 +1,8 @@
 from operator import contains
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from main_app.models import GENRES, Movie, Review
@@ -85,7 +84,7 @@ def add_review(request, movie_id):
   
 
 		# do somestuff
-		# creates an instance of out feeding to be put in the database
+		# creates an instance of out review to be put in the database
 
 		new_review = form.save(commit=False)
 	
@@ -145,7 +144,7 @@ def movies_detail(request, movie_id):
   
 
     movie = Movie.objects.get(id=movie_id)
-    # create an instance of FeedingForm
+    # create an instance of ReviewForm
     review_form = ReviewForm()
     favorite = bool
     if movie.favorites.filter(id=request.user.id).exists(): #checks if the user's id exists and see if they have added the movie to their favorites page
@@ -154,20 +153,22 @@ def movies_detail(request, movie_id):
     
     })
     
-
+#this renders the favorites page
 @login_required
-def favorites(request):
-    new = Movie.newmanager.filter(favorites=request.user)
-    return render(request, 'movies/favorites.html', {'favorites': favorites, 'new': new})
+def favorites(request): 
+    new = Movie.newmanager.filter(favorites=request.user) #this filters newmanager inside of the Movie model; returns the data returned from the database 
+    return render(request, 'movies/favorites.html', {'favorites': favorites, 'new': new}) #pass in variables for the favorites template
 
 
 @login_required
 def add_to_favorites(request, id):
-    movie = get_object_or_404(Movie, id=id)
-    if movie.favorites.filter(id=request.user.id).exists():
-        movie.favorites.remove(request.user)
+    #the get_object_or_404 is a Django shortcut that calls get() on a model manager,
+    #but it gives Http404 to return the standard error page
+    movie = get_object_or_404(Movie, id=id) #pass in the Movie model and the id of the movie
+    if movie.favorites.filter(id=request.user.id).exists(): #checks to see if the user id exists inside of the favorites field in the Movie model
+        movie.favorites.remove(request.user) #if it exists, then remove it 
     else:
-        movie.favorites.add(request.user)
-    return redirect('/favorites/')
-    # return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        movie.favorites.add(request.user) #else, add the id of user 
+    return redirect('/favorites/') #redirect to the favorites page
+    
     
