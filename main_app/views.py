@@ -76,23 +76,26 @@ class MovieCreate(LoginRequiredMixin,CreateView):
 
 @login_required
 def add_review(request, movie_id):
-
+  # if request.method == "POST":
+  #   
 	# create a ModelForm Instance using the data in the request
-	form = ReviewForm(request.POST)
-	# validate
-	if form.is_valid():
-  
+  form = ReviewForm(request.POST)
 
+	# validate
+  if form.is_valid():
+    user = request.user
+    
+  
 		# do somestuff
 		# creates an instance of out review to be put in the database
 
-		new_review = form.save(commit=False)
-	
-		new_review.movie_id = movie_id
-		new_review.save() 
+  new_review = form.save(commit=False)
+  new_review.movie_id = movie_id  
+  new_review.user = user
+  new_review.save() 
     
 
-	return redirect('detail', movie_id=movie_id)
+  return redirect('detail', movie_id=movie_id)
 
 def review_delete(request, pk):
     review = get_object_or_404(Review, pk=pk)  
