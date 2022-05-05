@@ -52,6 +52,7 @@ input {
 	background-color: #191919;
 	color: #fff;
 	top: 64px !important;
+	width: 140px !important;
 }
 
 #dropdown1>li:hover {
