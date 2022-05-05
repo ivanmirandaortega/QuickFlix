@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>QuickFlix</h1>
 <div class="col">
    <div class="about">
       {%if searched%}
@@ -9,7 +8,8 @@
       <table>
          <thead>
             <tr>
-               <th>Movie Name</th>
+               <th>Movie</th>
+               <th>Movie Title</th>
                <th>Movie Genre</th>
                <th>Movie Description</th>
             </tr>
@@ -17,6 +17,7 @@
          <tbody>
             <tr>
                {% for movie in movies %}
+               <td><img src="{{ movie.image }}" alt=""></td>
                <td><a href="{% url 'detail' movie.id%}">{{ movie.name}}</a></td>
                <td>{{ movie.genre }}</td>
                <td>{{ movie.description }}</td>
