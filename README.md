@@ -7,11 +7,16 @@
 
 ## App Images
 ### Home Page
+![Homepage](/main_app/static/images/homepage.png)
 
+### All Movies Page
+![All-movies](/main_app/static/images/all-movies-page.png)
 
-### All movies Page
+### Details Page
+![Details-page](/main_app/static/images/detail-page.png)
 
 ### Favorites Page 
+![Favorites-page](/main_app/static/images/favorites-page.png)
 
 ## Technologies Used
 * Django
@@ -26,7 +31,7 @@
 
 
 ## Getting Started
-Launch the app! []
+[Launch the app!](https://quickflixmovies.herokuapp.com)
 
 ## Project Planning
 ### [Pitch-Deck](https://docs.google.com/presentation/d/1hmguBs1THDCY0P-Mg9VGl_6_xUErjMW1Feb-yPeeGTw/edit#slide=id.gf3f5369fea_1_5)
