@@ -25,6 +25,10 @@ body {
 	margin-top: -72px;
 }
 
+input {
+	color: #fff;
+}
+
 .input-field {
 	display: flex;
 	padding-top: 10px;
