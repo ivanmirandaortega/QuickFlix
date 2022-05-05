@@ -39,7 +39,7 @@ class Review(models.Model):
     comment = models.CharField(max_length=100)
     recommend = models.BooleanField('Would Recommend')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, default = '1')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default = '1')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"The user {self.user} has id of {self.id} and {self.recommend}"
