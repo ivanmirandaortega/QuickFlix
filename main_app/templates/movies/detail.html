@@ -58,8 +58,8 @@
             <td>{{review.comment}} </td>
             <td>{{review.recommend|yesno:"Would Recommend,Would not Recommend" }}</td>
             {% if user == review.user %}
-            <td><a href="{% url 'review_update' review.id %}">Edit</a></td>
-            <td><a href="{% url 'review_delete' review.id %}">Delete</a></td>
+            <td><a href="{% url 'review_update' review.id %}" class="btn-small rec">Edit</a></td>
+            <td><a href="{% url 'review_delete' review.id %}" class="btn-small rec">Delete</a></td>
           </tr>
           {% endif %}
           {% endfor %}
